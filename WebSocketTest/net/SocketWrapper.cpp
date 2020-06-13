@@ -10,6 +10,8 @@ using Poco::Net::HTTPResponse;
 using Poco::Net::HTTPMessage;
 using Poco::Net::WebSocket;
 
+using Poco::JSON::Object;
+
 using namespace std;
 
 SocketWrapper::SocketWrapper(string &host, string &uri, uint port) : host{host}, uri{uri}, port{port} {}
@@ -26,7 +28,7 @@ void SocketWrapper::disconnect() {
     socket->close();
 }
 
-void SocketWrapper::startListening() {
+void SocketWrapper::startListening(function<void(string, Object::Ptr &)> callback) {
     int flags = 0;
 
     while (isConnected) {
@@ -36,5 +38,10 @@ void SocketWrapper::startListening() {
 
         string data(receiveBuff, 0, frameLength);
 
+        Object::Ptr objPtr = parser.parse(data).extract<Object::Ptr>();
+        string messageType = objPtr->getValue<string>("messageType");
+        Object::Ptr payload = objPtr->getObject("payload");
+
+        callback(messageType, payload);
     }
 }

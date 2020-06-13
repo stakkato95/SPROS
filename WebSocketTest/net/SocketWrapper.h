@@ -11,24 +11,30 @@
 #include "Poco/Net/WebSocket.h"
 #include "Poco/Net/HTTPClientSession.h"
 
+#include "Poco/JSON/Parser.h"
+#include "Poco/JSON/ParseHandler.h"
+#include "Poco/JSON/JSONException.h"
+
 #include <iostream>
 #include <string>
+#include <functional>
 
 #include "../model/DroneInfo.h"
 #include "../transport/Message.h"
 #include "../Helper.h"
 #include "../MessageTypeConst.h"
+#include "message/MessageFactory.h"
 
 class SocketWrapper {
 public:
-    SocketWrapper(std::string& host, std::string& uri, uint port);
+    SocketWrapper(std::string &host, std::string &uri, uint port);
 
     void connect() noexcept(false);
 
     void disconnect() noexcept(false);
 
     template<typename T>
-    void sendMessage(std::string& type, T data) noexcept(false) {
+    void sendMessage(std::string &type, T data) noexcept(false) {
         Message<T> m;
         m.messageType = type;
         m.payload = data;
@@ -40,7 +46,7 @@ public:
         std::cout << "Sent bytes " << len << std::endl;
     }
 
-    void startListening() noexcept(false);
+    void startListening(std::function<void(std::string, Poco::JSON::Object::Ptr &)>) noexcept(false);
 
 private:
     static const int RECEIVE_BUFFER_SIZE = 1024;
@@ -48,9 +54,12 @@ private:
     std::string host;
     std::string uri;
     uint port;
+
     Poco::Net::WebSocket *socket;
     char receiveBuff[RECEIVE_BUFFER_SIZE];
     bool isConnected;
+
+    Poco::JSON::Parser parser;
 };
 
 
