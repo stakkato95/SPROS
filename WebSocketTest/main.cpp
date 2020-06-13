@@ -15,27 +15,26 @@ using Poco::Net::HTTPResponse;
 using Poco::Net::HTTPMessage;
 using Poco::Net::WebSocket;
 
-int main(int args,char **argv)
-{
-    HTTPClientSession cs("localhost",8080);
-    HTTPRequest request(HTTPRequest::HTTP_GET, "/socket/droneSocket",HTTPMessage::HTTP_1_1);
+int main(int args, char **argv) {
+    HTTPClientSession cs("localhost", 8080);
+    HTTPRequest request(HTTPRequest::HTTP_GET, "/socket/droneSocket", HTTPMessage::HTTP_1_1);
     HTTPResponse response;
 
     try {
-        WebSocket* m_psock = new WebSocket(cs, request, response);
+        WebSocket *m_psock = new WebSocket(cs, request, response);
         DroneInfo droneInfo;
         droneInfo.ip = getLocalIpAddress();
         droneInfo.position = getPosition();
-        std::cout << treeToString(droneInfo.getTree()) << std::endl;
 
-        char const *testStr="Hello echo websocket!";
+        std::string message = treeToString(droneInfo.getTree());
+        char const *testStr = message.c_str();
         char receiveBuff[256];
 
-        int len=m_psock->sendFrame(testStr,strlen(testStr),WebSocket::FRAME_TEXT);
+        int len = m_psock->sendFrame(testStr, strlen(testStr), WebSocket::FRAME_TEXT);
         std::cout << "Sent bytes " << len << std::endl;
-        int flags=0;
+        int flags = 0;
 
-        int rlen=m_psock->receiveFrame(receiveBuff,256,flags);
+        int rlen = m_psock->receiveFrame(receiveBuff, 256, flags);
         std::cout << "Received bytes " << rlen << std::endl;
         std::cout << receiveBuff << std::endl;
 
