@@ -3,12 +3,19 @@ project(WebSocketTest)
 
 set(CMAKE_CXX_STANDARD 17)
 
+# POCO
+set(Poco_INCLUDE_DIRS /usr/local/include/Poco)
+set(Poco_LIBRARIES Poco::Foundation Poco::Net)
 find_package(Poco REQUIRED COMPONENTS Foundation XML Net Util JSON)
-set(POCO_INCLUDE_DIRS /usr/local/include/Poco)
-set(POCO_LIBRARIES Poco::Foundation Poco::Net)
+include_directories(${Poco_INCLUDE_DIRS})
 
-include_directories(${POCO_INCLUDE_DIRS})
+# Boost
+set(Boost_USE_STATIC_LIBS OFF)
+set(Boost_USE_MULTITHREADED ON)
+set(Boost_USE_STATIC_RUNTIME OFF)
+set(Boost_LIBRARIES Boost::filesystem Boost::regex)
+find_package(Boost COMPONENTS filesystem regex)
 
 add_executable(WebSocketTest main.cpp)
 
-target_link_libraries(WebSocketTest ${POCO_LIBRARIES})
+target_link_libraries(WebSocketTest ${Poco_LIBRARIES} ${Boost_LIBRARIES})
