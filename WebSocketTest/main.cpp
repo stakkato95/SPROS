@@ -28,7 +28,7 @@ int main(int args, char **argv) {
         droneInfo.ip = getLocalIpAddress();
         droneInfo.position = getPosition();
         Message<DroneInfo> m;
-        m.messageType = "showUp";
+        m.messageType = "SHOW_UP";
         m.payload = droneInfo;
 
         std::string message = treeToString(m.getTree());
