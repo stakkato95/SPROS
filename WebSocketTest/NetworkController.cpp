@@ -6,8 +6,11 @@
 
 using namespace std;
 
-void NetworkController::init(std::string& host, uint port, std::string& uri) {
+NetworkController::NetworkController(string& host, uint port, string& uri) {
     droneNetwork = new DroneNetwork(host, port, uri, *this);
+}
+
+void NetworkController::init() {
     droneNetwork->init();
 }
 
@@ -25,7 +28,7 @@ void NetworkController::startListening() {
 
 void NetworkController::stopListening() {
     listening = false;
-    droneNetwork->stopListening();
+    droneNetwork->getSocket().disconnect();
 }
 
 void NetworkController::onShowUpReceived(const DroneInfo &model) {
@@ -34,4 +37,5 @@ void NetworkController::onShowUpReceived(const DroneInfo &model) {
 
 void NetworkController::onRegistrationReceived(const Registration &model) {
     cout << "onRegistrationReceived " << model.id << endl;
+    registrationId = model.id;
 }

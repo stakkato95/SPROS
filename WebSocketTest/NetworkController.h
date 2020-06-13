@@ -12,7 +12,9 @@
 
 class NetworkController : public NetCallback {
 public:
-    void init(std::string& host, uint port, std::string& uri);
+    NetworkController(std::string& host, uint port, std::string& uri);
+
+    void init();
 
     void startListening();
 
@@ -23,8 +25,9 @@ public:
     void onRegistrationReceived(const Registration &) override;
 private:
     DroneNetwork* droneNetwork;
+    bool listening = false;
 
-    bool listening;
+    std::string registrationId;
 };
 
 

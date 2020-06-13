@@ -22,9 +22,7 @@ public:
 
     void startListening();
 
-    void stopListening();
-
-    bool isListening();
+    SocketWrapper& getSocket();
 private:
     std::string& host;
     uint port;

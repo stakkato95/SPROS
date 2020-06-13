@@ -39,9 +39,9 @@ void SocketWrapper::startListening(function<void(string&, Object::Ptr &)>&& call
     while (connected) {
         int frameLength = socket->receiveFrame(receiveBuff, RECEIVE_BUFFER_SIZE, flags);
         std::cout << "Received bytes " << frameLength << std::endl;
-        std::cout << receiveBuff << std::endl;
 
         string data(receiveBuff, 0, frameLength);
+        std::cout << data << std::endl;
 
         Object::Ptr objPtr = parser.parse(data).extract<Object::Ptr>();
         string messageType = objPtr->getValue<string>("messageType");

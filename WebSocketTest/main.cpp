@@ -33,7 +33,7 @@ int main(int args, char **argv) {
     uint port = 8080;
     std::string uri = "/socket/droneSocket";
 
-    NetworkController controller;
-    controller.init(host, port, uri);
+    NetworkController controller(host, port, uri);
+    controller.init();
     controller.startListening();
 }

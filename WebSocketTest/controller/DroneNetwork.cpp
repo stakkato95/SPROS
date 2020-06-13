@@ -36,10 +36,6 @@ void DroneNetwork::startListening() {
     });
 }
 
-void DroneNetwork::stopListening() {
-    socket->disconnect();
-}
-
-bool DroneNetwork::isListening() {
-    return socket->isConnected();
+SocketWrapper& DroneNetwork::getSocket() {
+    return *socket;
 }
