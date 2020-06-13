@@ -21,6 +21,6 @@ add_executable(WebSocketTest main.cpp
         Helper.h
         model/DroneInfo.cpp model/DroneInfo.h
         model/Position.cpp model/Position.h
-        model/Model.h)
+        model/Model.h transport/Message.cpp transport/Message.h)
 
 target_link_libraries(WebSocketTest ${Poco_LIBRARIES} ${Boost_LIBRARIES})

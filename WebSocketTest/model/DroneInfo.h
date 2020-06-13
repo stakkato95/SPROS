@@ -11,7 +11,6 @@
 #include "Position.h"
 
 struct DroneInfo : public Model {
-public:
     std::string ip;
     Position position;
 

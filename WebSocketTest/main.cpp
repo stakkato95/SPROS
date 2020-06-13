@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "model/DroneInfo.h"
+#include "transport/Message.h"
 #include "Helper.h"
 
 using Poco::Net::HTTPClientSession;
@@ -22,11 +23,15 @@ int main(int args, char **argv) {
 
     try {
         WebSocket *m_psock = new WebSocket(cs, request, response);
+
         DroneInfo droneInfo;
         droneInfo.ip = getLocalIpAddress();
         droneInfo.position = getPosition();
+        Message<DroneInfo> m;
+        m.messageType = "showUp";
+        m.payload = droneInfo;
 
-        std::string message = treeToString(droneInfo.getTree());
+        std::string message = treeToString(m.getTree());
         char const *testStr = message.c_str();
         char receiveBuff[256];
 
