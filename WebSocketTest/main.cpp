@@ -32,7 +32,9 @@ int main(int args, char **argv) {
         factory.registerAdapter(new DroneInfoAdapter(), MESSAGE_TYPE_SHOW_UP);
         factory.registerAdapter(new RegistrationAdapter(), MESSAGE_TYPE_REGISTRATION);
 
-        SocketWrapper socket("localhost", 8080, "/socket/droneSocket");
+        std::string host = "localhost";
+        std::string uri = "localhost";
+        SocketWrapper socket(host, 8080, uri);
         socket.connect();
 
         DroneInfo droneInfo;
@@ -54,6 +56,14 @@ int main(int args, char **argv) {
     } catch (std::exception &e) {
         std::cout << "Exception " << e.what();
     }
+
+
+
+
+
+
+
+
 
 
 //    HTTPClientSession cs("localhost", 8080);

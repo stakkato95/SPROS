@@ -14,7 +14,7 @@ using Poco::JSON::Object;
 
 using namespace std;
 
-SocketWrapper::SocketWrapper(string&& host, uint port, string&& uri) : host{host}, port{port}, uri{uri} {}
+SocketWrapper::SocketWrapper(string& host, uint port, string& uri) : host{host}, port{port}, uri{uri} {}
 
 void SocketWrapper::connect() {
     HTTPClientSession cs(host, port);

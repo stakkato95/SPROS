@@ -28,6 +28,6 @@ add_executable(WebSocketTest main.cpp
         net/message/MessageFactory.h
         net/message/MessageAdapter.h
         net/message/RegistrationAdapter.h
-        model/Registration.h net/message/DroneInfoAdapter.h)
+        model/Registration.h net/message/DroneInfoAdapter.h controller/DroneNetwork.cpp controller/DroneNetwork.h controller/NetCallback.h)
 
 target_link_libraries(WebSocketTest ${Poco_LIBRARIES} ${Boost_LIBRARIES})

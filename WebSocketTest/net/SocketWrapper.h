@@ -27,7 +27,7 @@
 
 class SocketWrapper {
 public:
-    SocketWrapper(std::string&& host, uint port, std::string&& uri);
+    SocketWrapper(std::string& host, uint port, std::string& uri);
 
     void connect() noexcept(false);
 
