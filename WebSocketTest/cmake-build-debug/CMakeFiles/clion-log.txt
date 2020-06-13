@@ -1,4 +1,0 @@
-/snap/clion/116/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/artsiom/Documents/repository/SPROS/WebSocketTest
--- Configuring done
--- Generating done
--- Build files have been written to: /home/artsiom/Documents/repository/SPROS/WebSocketTest/cmake-build-debug

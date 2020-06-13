@@ -1,3 +1,0 @@
-/home/artsiom/Documents/repository/SPROS/WebSocketTest/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/artsiom/Documents/repository/SPROS/WebSocketTest/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/artsiom/Documents/repository/SPROS/WebSocketTest/cmake-build-debug/CMakeFiles/WebSocketTest.dir
