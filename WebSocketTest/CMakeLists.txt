@@ -27,7 +27,7 @@ add_executable(WebSocketTest main.cpp
         MessageTypeConst.h
         net/message/MessageFactory.cpp net/message/MessageFactory.h
         net/message/MessageAdapter.h
-        net/message/RegistrationAdapter.cpp net/message/RegistrationAdapter.h
+        net/message/RegistrationAdapter.h
         model/Registration.h)
 
 target_link_libraries(WebSocketTest ${Poco_LIBRARIES} ${Boost_LIBRARIES})

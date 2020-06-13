@@ -46,7 +46,7 @@ public:
         std::cout << "Sent bytes " << len << std::endl;
     }
 
-    void startListening(std::function<void(std::string &, Poco::JSON::Object::Ptr &)> &) noexcept(false);
+    void startListening(std::function<void(std::string &, Poco::JSON::Object::Ptr &)> &&) noexcept(false);
 
 private:
     static const int RECEIVE_BUFFER_SIZE = 1024;

@@ -10,7 +10,9 @@
 
 class RegistrationAdapter : public MessageAdapter<Registration> {
 public:
-    Registration getModel(Poco::JSON::Object::Ptr&) const noexcept(false) override;
+    Registration getModel(Poco::JSON::Object::Ptr& objPtr) const noexcept(false) override {
+        return { objPtr->getValue<std::string>("id") };
+    }
 };
 
 

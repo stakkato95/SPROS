@@ -21,6 +21,7 @@ void SocketWrapper::connect() {
     HTTPRequest request(HTTPRequest::HTTP_GET, uri, HTTPMessage::HTTP_1_1);
     HTTPResponse response;
     socket = new WebSocket(cs, request, response);
+    isConnected = true;
 }
 
 void SocketWrapper::disconnect() {
@@ -28,7 +29,7 @@ void SocketWrapper::disconnect() {
     socket->close();
 }
 
-void SocketWrapper::startListening(function<void(string&, Object::Ptr &)>& callback) {
+void SocketWrapper::startListening(function<void(string&, Object::Ptr &)>&& callback) {
     int flags = 0;
 
     while (isConnected) {

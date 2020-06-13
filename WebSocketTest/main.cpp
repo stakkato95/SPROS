@@ -7,11 +7,15 @@
 #include <iostream>
 
 #include "model/DroneInfo.h"
+#include "model/Registration.h"
+
 #include "transport/Message.h"
 #include "Helper.h"
-
 #include "net/SocketWrapper.h"
 #include "MessageTypeConst.h"
+
+#include "net/message/MessageFactory.h"
+#include "net/message/RegistrationAdapter.h"
 
 using Poco::Net::HTTPClientSession;
 using Poco::Net::HTTPRequest;
@@ -19,8 +23,13 @@ using Poco::Net::HTTPResponse;
 using Poco::Net::HTTPMessage;
 using Poco::Net::WebSocket;
 
+using Poco::JSON::Object;
+
 int main(int args, char **argv) {
     try {
+        MessageFactory factory;
+        factory.registerAdapter(new RegistrationAdapter(), MESSAGE_TYPE_REGISTRATION);
+
         SocketWrapper socket("localhost", 8080, "/socket/droneSocket");
         socket.connect();
 
@@ -28,6 +37,17 @@ int main(int args, char **argv) {
         droneInfo.ip = getLocalIpAddress();
         droneInfo.position = getPosition();
         socket.sendMessage<DroneInfo>(MESSAGE_TYPE_SHOW_UP, droneInfo);
+
+        socket.startListening([&](std::string& messageType, Object::Ptr &objPtr) {
+            std::cout << messageType << std::endl;
+
+            if (messageType == MESSAGE_TYPE_SHOW_UP) {
+
+            } else if (messageType == MESSAGE_TYPE_REGISTRATION) {
+                auto r = factory.parseJson<Registration>(objPtr, MESSAGE_TYPE_REGISTRATION);
+                std::cout << r.id << std::endl;
+            }
+        });
     } catch (std::exception &e) {
         std::cout << "Exception " << e.what();
     }

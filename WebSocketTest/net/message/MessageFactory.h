@@ -14,18 +14,18 @@ class MessageFactory {
 public:
     MessageFactory() = default;
 
-    void registerAdapter(IMessageAdapter &adapter, std::string &type) {
+    void registerAdapter(IMessageAdapter *adapter, std::string &&type) {
         adapters[type] = adapter;
     }
 
     template<typename T>
-    T parseJson(Poco::JSON::Object::Ptr &obj, std::string type) {
-        const MessageAdapter<T> &adapter = adapters.at(type);
-        return adapter.getModel(obj);
+    T parseJson(Poco::JSON::Object::Ptr &obj, std::string&& type) {
+        const MessageAdapter<T> *adapter = static_cast<MessageAdapter<T> *>(adapters.at(type));
+        return adapter->getModel(obj);
     }
 
 private:
-    std::unordered_map<std::string, IMessageAdapter> adapters;
+    std::unordered_map<std::string, IMessageAdapter*> adapters;
 };
 
 
