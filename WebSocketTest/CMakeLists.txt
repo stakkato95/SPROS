@@ -19,8 +19,8 @@ find_package(Boost COMPONENTS system)
 add_executable(WebSocketTest main.cpp
         model/Position.h
         helper/Helper.h
-        model/DroneInfo.cpp model/DroneInfo.h
-        model/Position.cpp model/Position.h
+        model/DroneInfo.h
+        model/Position.h
         model/Model.h
         transport/Message.cpp transport/Message.h
         net/SocketWrapper.cpp net/SocketWrapper.h

@@ -12,7 +12,15 @@ struct Position : public Model {
     float lon;
     float alt;
 
-    boost::property_tree::ptree getTree() const override;
+    boost::property_tree::ptree getTree() const override {
+        boost::property_tree::ptree out;
+
+        out.put("lat", this->lat);
+        out.put("lon", this->lon);
+        out.put("alt", this->alt);
+
+        return out;
+    }
 };
 
 #endif //WEBSOCKETTEST_POSITION_H
