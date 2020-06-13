@@ -14,9 +14,9 @@ using Poco::Net::WebSocket;
 
 int main(int args,char **argv)
 {
-    HTTPClientSession cs("echo.websocket.org",80);
-    HTTPRequest request(HTTPRequest::HTTP_GET, "/?encoding=text",HTTPMessage::HTTP_1_1);
-    request.set("origin", "http://www.websocket.org");
+//    HTTPClientSession cs("echo.websocket.org",80);
+    HTTPClientSession cs("localhost",8080);
+    HTTPRequest request(HTTPRequest::HTTP_GET, "/socket/droneSocket",HTTPMessage::HTTP_1_1);
     HTTPResponse response;
 
     try {
