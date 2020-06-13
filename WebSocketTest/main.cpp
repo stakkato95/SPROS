@@ -15,6 +15,7 @@
 #include "MessageTypeConst.h"
 
 #include "net/message/MessageFactory.h"
+#include "net/message/DroneInfoAdapter.h"
 #include "net/message/RegistrationAdapter.h"
 
 using Poco::Net::HTTPClientSession;
@@ -28,6 +29,7 @@ using Poco::JSON::Object;
 int main(int args, char **argv) {
     try {
         MessageFactory factory;
+        factory.registerAdapter(new DroneInfoAdapter(), MESSAGE_TYPE_SHOW_UP);
         factory.registerAdapter(new RegistrationAdapter(), MESSAGE_TYPE_REGISTRATION);
 
         SocketWrapper socket("localhost", 8080, "/socket/droneSocket");
@@ -42,7 +44,8 @@ int main(int args, char **argv) {
             std::cout << messageType << std::endl;
 
             if (messageType == MESSAGE_TYPE_SHOW_UP) {
-
+                auto d = factory.parseJson<DroneInfo>(objPtr, MESSAGE_TYPE_SHOW_UP);
+                std::cout << d.position.lat << std::endl;
             } else if (messageType == MESSAGE_TYPE_REGISTRATION) {
                 auto r = factory.parseJson<Registration>(objPtr, MESSAGE_TYPE_REGISTRATION);
                 std::cout << r.id << std::endl;
