@@ -27,14 +27,14 @@
 
 class SocketWrapper {
 public:
-    SocketWrapper(std::string &host, std::string &uri, uint port);
+    SocketWrapper(std::string&& host, uint port, std::string&& uri);
 
     void connect() noexcept(false);
 
     void disconnect() noexcept(false);
 
     template<typename T>
-    void sendMessage(std::string &type, T data) noexcept(false) {
+    void sendMessage(std::string &&type, T data) noexcept(false) {
         Message<T> m;
         m.messageType = type;
         m.payload = data;
@@ -46,7 +46,7 @@ public:
         std::cout << "Sent bytes " << len << std::endl;
     }
 
-    void startListening(std::function<void(std::string, Poco::JSON::Object::Ptr &)>) noexcept(false);
+    void startListening(std::function<void(std::string &, Poco::JSON::Object::Ptr &)> &) noexcept(false);
 
 private:
     static const int RECEIVE_BUFFER_SIZE = 1024;

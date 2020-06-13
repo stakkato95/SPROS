@@ -14,7 +14,7 @@ using Poco::JSON::Object;
 
 using namespace std;
 
-SocketWrapper::SocketWrapper(string &host, string &uri, uint port) : host{host}, uri{uri}, port{port} {}
+SocketWrapper::SocketWrapper(string&& host, uint port, string&& uri) : host{host}, port{port}, uri{uri} {}
 
 void SocketWrapper::connect() {
     HTTPClientSession cs(host, port);
@@ -28,7 +28,7 @@ void SocketWrapper::disconnect() {
     socket->close();
 }
 
-void SocketWrapper::startListening(function<void(string, Object::Ptr &)> callback) {
+void SocketWrapper::startListening(function<void(string&, Object::Ptr &)>& callback) {
     int flags = 0;
 
     while (isConnected) {
