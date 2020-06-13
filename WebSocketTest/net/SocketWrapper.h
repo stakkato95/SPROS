@@ -21,8 +21,8 @@
 
 #include "../model/DroneInfo.h"
 #include "../transport/Message.h"
-#include "../Helper.h"
-#include "../MessageTypeConst.h"
+#include "../helper/Helper.h"
+#include "../helper/MessageTypeConst.h"
 #include "message/MessageFactory.h"
 
 class SocketWrapper {
@@ -32,6 +32,8 @@ public:
     void connect() noexcept(false);
 
     void disconnect() noexcept(false);
+
+    bool isConnected();
 
     template<typename T>
     void sendMessage(std::string &&type, T data) noexcept(false) {
@@ -57,7 +59,7 @@ private:
 
     Poco::Net::WebSocket *socket;
     char receiveBuff[RECEIVE_BUFFER_SIZE];
-    bool isConnected;
+    bool connected;
 
     Poco::JSON::Parser parser;
 };

@@ -10,9 +10,9 @@
 
 class NetCallback {
 public:
-    virtual void onShowUpReceived(const DroneInfo &) = 0;
+    virtual void onShowUpReceived(const DroneInfo &model) = 0;
 
-    virtual void onRegistrationReceived(const Registration &) = 0;
+    virtual void onRegistrationReceived(const Registration &model) = 0;
 };
 
 

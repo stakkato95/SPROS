@@ -21,18 +21,22 @@ void SocketWrapper::connect() {
     HTTPRequest request(HTTPRequest::HTTP_GET, uri, HTTPMessage::HTTP_1_1);
     HTTPResponse response;
     socket = new WebSocket(cs, request, response);
-    isConnected = true;
+    connected = true;
 }
 
 void SocketWrapper::disconnect() {
-    isConnected = false;
+    connected = false;
     socket->close();
+}
+
+bool SocketWrapper::isConnected() {
+    return connected;
 }
 
 void SocketWrapper::startListening(function<void(string&, Object::Ptr &)>&& callback) {
     int flags = 0;
 
-    while (isConnected) {
+    while (connected) {
         int frameLength = socket->receiveFrame(receiveBuff, RECEIVE_BUFFER_SIZE, flags);
         std::cout << "Received bytes " << frameLength << std::endl;
         std::cout << receiveBuff << std::endl;

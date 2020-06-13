@@ -6,15 +6,13 @@
 #define WEBSOCKETTEST_MESSAGEFACTORY_H
 
 #include <unordered_map>
-#include <typeindex>
 
 #include "MessageAdapter.h"
+#include "DroneInfoAdapter.h"
 
 class MessageFactory {
 public:
-    MessageFactory() = default;
-
-    void registerAdapter(IMessageAdapter *adapter, std::string &&type) {
+    void registerAdapter(IMessageAdapter *adapter, const std::string &type) {
         adapters[type] = adapter;
     }
 

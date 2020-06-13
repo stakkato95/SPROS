@@ -10,13 +10,15 @@
 #include "model/Registration.h"
 
 #include "transport/Message.h"
-#include "Helper.h"
+#include "helper/Helper.h"
 #include "net/SocketWrapper.h"
-#include "MessageTypeConst.h"
+#include "helper/MessageTypeConst.h"
 
 #include "net/message/MessageFactory.h"
 #include "net/message/DroneInfoAdapter.h"
 #include "net/message/RegistrationAdapter.h"
+
+#include "NetworkController.h"
 
 using Poco::Net::HTTPClientSession;
 using Poco::Net::HTTPRequest;
@@ -27,35 +29,44 @@ using Poco::Net::WebSocket;
 using Poco::JSON::Object;
 
 int main(int args, char **argv) {
-    try {
-        MessageFactory factory;
-        factory.registerAdapter(new DroneInfoAdapter(), MESSAGE_TYPE_SHOW_UP);
-        factory.registerAdapter(new RegistrationAdapter(), MESSAGE_TYPE_REGISTRATION);
+    std::string host = "localhost";
+    uint port = 8080;
+    std::string uri = "/socket/droneSocket";
 
-        std::string host = "localhost";
-        std::string uri = "localhost";
-        SocketWrapper socket(host, 8080, uri);
-        socket.connect();
+    NetworkController controller;
+    controller.init(host, port, uri);
+    controller.startListening();
 
-        DroneInfo droneInfo;
-        droneInfo.ip = getLocalIpAddress();
-        droneInfo.position = getPosition();
-        socket.sendMessage<DroneInfo>(MESSAGE_TYPE_SHOW_UP, droneInfo);
 
-        socket.startListening([&](std::string& messageType, Object::Ptr &objPtr) {
-            std::cout << messageType << std::endl;
-
-            if (messageType == MESSAGE_TYPE_SHOW_UP) {
-                auto d = factory.parseJson<DroneInfo>(objPtr, MESSAGE_TYPE_SHOW_UP);
-                std::cout << d.position.lat << std::endl;
-            } else if (messageType == MESSAGE_TYPE_REGISTRATION) {
-                auto r = factory.parseJson<Registration>(objPtr, MESSAGE_TYPE_REGISTRATION);
-                std::cout << r.id << std::endl;
-            }
-        });
-    } catch (std::exception &e) {
-        std::cout << "Exception " << e.what();
-    }
+//    try {
+//        MessageFactory factory;
+//        factory.registerAdapter(new DroneInfoAdapter(), MESSAGE_TYPE_SHOW_UP);
+//        factory.registerAdapter(new RegistrationAdapter(), MESSAGE_TYPE_REGISTRATION);
+//
+//        std::string host = "localhost";
+//        std::string uri = "/socket/droneSocket";
+//        SocketWrapper socket(host, 8080, uri);
+//        socket.connect();
+//
+//        DroneInfo droneInfo;
+//        droneInfo.ip = getLocalIpAddress();
+//        droneInfo.position = getPosition();
+//        socket.sendMessage<DroneInfo>(MESSAGE_TYPE_SHOW_UP, droneInfo);
+//
+//        socket.startListening([&](std::string& messageType, Object::Ptr &objPtr) {
+//            std::cout << messageType << std::endl;
+//
+//            if (messageType == MESSAGE_TYPE_SHOW_UP) {
+//                auto d = factory.parseJson<DroneInfo>(objPtr, MESSAGE_TYPE_SHOW_UP);
+//                std::cout << d.position.lat << std::endl;
+//            } else if (messageType == MESSAGE_TYPE_REGISTRATION) {
+//                auto r = factory.parseJson<Registration>(objPtr, MESSAGE_TYPE_REGISTRATION);
+//                std::cout << r.id << std::endl;
+//            }
+//        });
+//    } catch (std::exception &e) {
+//        std::cout << "Exception " << e.what();
+//    }
 
 
 

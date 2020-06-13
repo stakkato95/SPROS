@@ -14,17 +14,23 @@
 #include "../net/message/DroneInfoAdapter.h"
 #include "../net/message/RegistrationAdapter.h"
 
-class DroneNetwork : public NetCallback {
+class DroneNetwork {
 public:
     DroneNetwork(std::string& host, uint port, std::string& uri, NetCallback&);
 
     void init();
 
     void startListening();
+
+    void stopListening();
+
+    bool isListening();
 private:
     std::string& host;
     uint port;
     std::string& uri;
+
+    bool listening;
 
     SocketWrapper* socket;
     NetCallback& callback;

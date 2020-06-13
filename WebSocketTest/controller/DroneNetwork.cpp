@@ -25,9 +25,7 @@ void DroneNetwork::init() {
 }
 
 void DroneNetwork::startListening() {
-    socket->startListening([&](std::string& messageType, Object::Ptr &objPtr) {
-        std::cout << messageType << std::endl;
-
+    socket->startListening([&](std::string &messageType, Object::Ptr &objPtr) {
         if (messageType == MESSAGE_TYPE_SHOW_UP) {
             auto d = factory.parseJson<DroneInfo>(objPtr, MESSAGE_TYPE_SHOW_UP);
             callback.onShowUpReceived(d);
@@ -36,4 +34,12 @@ void DroneNetwork::startListening() {
             callback.onRegistrationReceived(r);
         }
     });
+}
+
+void DroneNetwork::stopListening() {
+    socket->disconnect();
+}
+
+bool DroneNetwork::isListening() {
+    return socket->isConnected();
 }

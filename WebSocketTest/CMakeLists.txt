@@ -18,16 +18,16 @@ find_package(Boost COMPONENTS system)
 
 add_executable(WebSocketTest main.cpp
         model/Position.h
-        Helper.h
+        helper/Helper.h
         model/DroneInfo.cpp model/DroneInfo.h
         model/Position.cpp model/Position.h
         model/Model.h
         transport/Message.cpp transport/Message.h
         net/SocketWrapper.cpp net/SocketWrapper.h
-        MessageTypeConst.h
+        helper/MessageTypeConst.h
         net/message/MessageFactory.h
         net/message/MessageAdapter.h
         net/message/RegistrationAdapter.h
-        model/Registration.h net/message/DroneInfoAdapter.h controller/DroneNetwork.cpp controller/DroneNetwork.h controller/NetCallback.h)
+        model/Registration.h net/message/DroneInfoAdapter.h controller/DroneNetwork.cpp controller/DroneNetwork.h controller/NetCallback.h NetworkController.cpp NetworkController.h)
 
 target_link_libraries(WebSocketTest ${Poco_LIBRARIES} ${Boost_LIBRARIES})
