@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/artsiom/Documents/repository/SPROS/WebSocketTest/main.cpp
+Poco/Net/HTTPRequest.h
+/home/artsiom/Documents/repository/SPROS/WebSocketTest/Poco/Net/HTTPRequest.h
+Poco/Net/HTTPResponse.h
+/home/artsiom/Documents/repository/SPROS/WebSocketTest/Poco/Net/HTTPResponse.h
+Poco/Net/HTTPMessage.h
+/home/artsiom/Documents/repository/SPROS/WebSocketTest/Poco/Net/HTTPMessage.h
+Poco/Net/WebSocket.h
+/home/artsiom/Documents/repository/SPROS/WebSocketTest/Poco/Net/WebSocket.h
+Poco/Net/HTTPClientSession.h
+/home/artsiom/Documents/repository/SPROS/WebSocketTest/Poco/Net/HTTPClientSession.h
+iostream
+-
+
