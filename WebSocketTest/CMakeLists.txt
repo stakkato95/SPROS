@@ -14,8 +14,13 @@ set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 set(Boost_LIBRARIES Boost::filesystem Boost::regex)
-find_package(Boost COMPONENTS filesystem regex)
+find_package(Boost COMPONENTS system)
 
-add_executable(WebSocketTest main.cpp)
+add_executable(WebSocketTest main.cpp
+        model/Position.h
+        Helper.h
+        model/DroneInfo.cpp model/DroneInfo.h
+        model/Position.cpp model/Position.h
+        model/Model.h)
 
 target_link_libraries(WebSocketTest ${Poco_LIBRARIES} ${Boost_LIBRARIES})

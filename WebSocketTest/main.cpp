@@ -3,7 +3,11 @@
 #include "Poco/Net/HTTPMessage.h"
 #include "Poco/Net/WebSocket.h"
 #include "Poco/Net/HTTPClientSession.h"
+
 #include <iostream>
+
+#include "model/DroneInfo.h"
+#include "Helper.h"
 
 using Poco::Net::HTTPClientSession;
 using Poco::Net::HTTPRequest;
@@ -11,17 +15,19 @@ using Poco::Net::HTTPResponse;
 using Poco::Net::HTTPMessage;
 using Poco::Net::WebSocket;
 
-
 int main(int args,char **argv)
 {
-//    HTTPClientSession cs("echo.websocket.org",80);
     HTTPClientSession cs("localhost",8080);
     HTTPRequest request(HTTPRequest::HTTP_GET, "/socket/droneSocket",HTTPMessage::HTTP_1_1);
     HTTPResponse response;
 
     try {
-
         WebSocket* m_psock = new WebSocket(cs, request, response);
+        DroneInfo droneInfo;
+        droneInfo.ip = getLocalIpAddress();
+        droneInfo.position = getPosition();
+        std::cout << treeToString(droneInfo.getTree()) << std::endl;
+
         char const *testStr="Hello echo websocket!";
         char receiveBuff[256];
 
