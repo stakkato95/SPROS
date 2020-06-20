@@ -7,12 +7,15 @@
 
 #include "../model/DroneInfo.h"
 #include "../model/Registration.h"
+#include "../model/StartSession.h"
 
 class NetCallback {
 public:
     virtual void onShowUpReceived(const DroneInfo &model) = 0;
 
     virtual void onRegistrationReceived(const Registration &model) = 0;
+
+    virtual void onStartSessionReceived(const StartSession &model) = 0;
 };
 
 

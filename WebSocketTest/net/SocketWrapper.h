@@ -23,7 +23,7 @@
 #include "../transport/Message.h"
 #include "../helper/Helper.h"
 #include "../helper/MessageTypeConst.h"
-#include "message/MessageFactory.h"
+#include "adapter/MessageFactory.h"
 
 class SocketWrapper {
 public:

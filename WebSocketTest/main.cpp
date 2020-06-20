@@ -14,9 +14,9 @@
 #include "net/SocketWrapper.h"
 #include "helper/MessageTypeConst.h"
 
-#include "net/message/MessageFactory.h"
-#include "net/message/DroneInfoAdapter.h"
-#include "net/message/RegistrationAdapter.h"
+#include "net/adapter/MessageFactory.h"
+#include "net/adapter/DroneInfoAdapter.h"
+#include "net/adapter/RegistrationAdapter.h"
 
 #include "NetworkController.h"
 

@@ -14,6 +14,7 @@ DroneNetwork::DroneNetwork(string &host, uint port, string &uri, NetCallback &ca
 void DroneNetwork::init() {
     factory.registerAdapter(new DroneInfoAdapter(), MESSAGE_TYPE_SHOW_UP);
     factory.registerAdapter(new RegistrationAdapter(), MESSAGE_TYPE_REGISTRATION);
+    factory.registerAdapter(new StartSessionAdapter(), MESSAGE_TYPE_START_SESSION);
 
     socket = new SocketWrapper(host, port, uri);
     socket->connect();
@@ -32,6 +33,9 @@ void DroneNetwork::startListening() {
         } else if (messageType == MESSAGE_TYPE_REGISTRATION) {
             auto r = factory.parseJson<Registration>(objPtr, MESSAGE_TYPE_REGISTRATION);
             callback.onRegistrationReceived(r);
+        } else if (messageType == MESSAGE_TYPE_START_SESSION) {
+            auto r = factory.parseJson<StartSession>(objPtr, MESSAGE_TYPE_START_SESSION);
+            callback.onStartSessionReceived(r);
         }
     });
 }

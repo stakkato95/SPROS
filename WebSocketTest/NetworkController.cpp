@@ -39,3 +39,12 @@ void NetworkController::onRegistrationReceived(const Registration &model) {
     cout << "onRegistrationReceived " << model.id << endl;
     registrationId = model.id;
 }
+
+void NetworkController::onStartSessionReceived(const StartSession &model) {
+    cout << "onStartSessionReceived " << model.sessionId << endl;
+    sessionId = model.sessionId;
+
+    StartSessionAck ack;
+    ack.successful = true;
+    droneNetwork->getSocket().sendMessage(MESSAGE_TYPE_START_SESSION_ACK, ack);
+}

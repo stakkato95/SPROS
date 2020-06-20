@@ -10,6 +10,8 @@
 #include "controller/NetCallback.h"
 #include "controller/DroneNetwork.h"
 
+#include "model/StartSessionAck.h"
+
 class NetworkController : public NetCallback {
 public:
     NetworkController(std::string& host, uint port, std::string& uri);
@@ -20,14 +22,17 @@ public:
 
     void stopListening();
 
-    void onShowUpReceived(const DroneInfo &) override;
+    void onShowUpReceived(const DroneInfo &model) override;
 
-    void onRegistrationReceived(const Registration &) override;
+    void onRegistrationReceived(const Registration &model) override;
+
+    void onStartSessionReceived(const StartSession &model) override;
 private:
     DroneNetwork* droneNetwork;
     bool listening = false;
 
     std::string registrationId;
+    std::string sessionId;
 };
 
 

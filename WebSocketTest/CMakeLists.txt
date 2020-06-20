@@ -22,12 +22,19 @@ add_executable(WebSocketTest main.cpp
         model/DroneInfo.h
         model/Position.h
         model/Model.h
+        model/Registration.h
+        model/StartSession.h
+        model/StartSessionAck.h
         transport/Message.cpp transport/Message.h
         net/SocketWrapper.cpp net/SocketWrapper.h
         helper/MessageTypeConst.h
-        net/message/MessageFactory.h
-        net/message/MessageAdapter.h
-        net/message/RegistrationAdapter.h
-        model/Registration.h net/message/DroneInfoAdapter.h controller/DroneNetwork.cpp controller/DroneNetwork.h controller/NetCallback.h NetworkController.cpp NetworkController.h)
+        net/adapter/MessageFactory.h
+        net/adapter/MessageAdapter.h
+        net/adapter/RegistrationAdapter.h
+        net/adapter/DroneInfoAdapter.h
+        net/adapter/StartSessionAdapter.h
+        controller/DroneNetwork.cpp controller/DroneNetwork.h
+        controller/NetCallback.h
+        NetworkController.cpp NetworkController.h)
 
 target_link_libraries(WebSocketTest ${Poco_LIBRARIES} ${Boost_LIBRARIES})
