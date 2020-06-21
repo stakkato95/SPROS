@@ -17,24 +17,29 @@ set(Boost_LIBRARIES Boost::filesystem Boost::regex)
 find_package(Boost COMPONENTS system)
 
 add_executable(WebSocketTest main.cpp
-        model/acknowledgement/Position.h
         helper/Helper.h
+        helper/MessageTypeConst.h
+        model/acknowledgement/Position.h
         model/acknowledgement/DroneInfo.h
         model/acknowledgement/Position.h
         model/acknowledgement/Model.h
+        model/acknowledgement/StartSessionAck.h
+        model/acknowledgement/PingAck.h
         model/Registration.h
         model/StartSession.h
-        model/acknowledgement/StartSessionAck.h
+        model/StartAction.h
+        model/Ping.h
         transport/Message.cpp transport/Message.h
         net/SocketWrapper.cpp net/SocketWrapper.h
-        helper/MessageTypeConst.h
         net/adapter/MessageFactory.h
         net/adapter/MessageAdapter.h
         net/adapter/RegistrationAdapter.h
         net/adapter/DroneInfoAdapter.h
         net/adapter/StartSessionAdapter.h
+        net/adapter/StartActionAdapter.h
+        net/adapter/PingAdapter.h
         controller/DroneNetwork.cpp controller/DroneNetwork.h
         controller/NetCallback.h
-        NetworkController.cpp NetworkController.h model/Ping.h model/acknowledgement/PingAck.h net/adapter/PingAdapter.h)
+        NetworkController.cpp NetworkController.h model/acknowledgement/ActionFinished.h)
 
 target_link_libraries(WebSocketTest ${Poco_LIBRARIES} ${Boost_LIBRARIES})

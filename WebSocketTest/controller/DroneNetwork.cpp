@@ -16,6 +16,7 @@ void DroneNetwork::init() {
     factory.registerAdapter(new RegistrationAdapter(), MESSAGE_TYPE_REGISTRATION);
     factory.registerAdapter(new StartSessionAdapter(), MESSAGE_TYPE_START_SESSION);
     factory.registerAdapter(new PingAdapter(), MESSAGE_TYPE_PING);
+    factory.registerAdapter(new StartActionAdapter(), MESSAGE_TYPE_START_ACTION);
 
     reconnect();
 }
@@ -51,6 +52,9 @@ void DroneNetwork::startListening() {
         } else if (messageType == MESSAGE_TYPE_PING) {
             auto r = factory.parseJson<Ping>(objPtr, MESSAGE_TYPE_PING);
             callback.onPingReceived(r);
+        } else if (messageType == MESSAGE_TYPE_START_ACTION) {
+            auto r = factory.parseJson<StartAction>(objPtr, MESSAGE_TYPE_START_ACTION);
+            callback.onStartActionReceived(r);
         }
     });
 }

@@ -9,6 +9,7 @@
 #include "../model/Registration.h"
 #include "../model/StartSession.h"
 #include "../model/Ping.h"
+#include "../model/StartAction.h"
 
 class NetCallback {
 public:
@@ -19,6 +20,8 @@ public:
     virtual void onStartSessionReceived(const StartSession &model) = 0;
 
     virtual void onPingReceived(const Ping &model) = 0;
+
+    virtual void onStartActionReceived(const StartAction &model) = 0;
 };
 
 

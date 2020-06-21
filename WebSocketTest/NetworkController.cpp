@@ -58,3 +58,13 @@ void NetworkController::onPingReceived(const Ping &model) {
     ack.droneId = "5eede157c4269317b428dedf";
     droneNetwork->getSocket().sendMessage(MESSAGE_TYPE_PING_ACK, ack);
 }
+
+void NetworkController::onStartActionReceived(const StartAction &model) {
+    cout << "onStartActionReceived " << model.actionId << endl;
+
+    this_thread::sleep_for(3s);
+
+    ActionFinished actionFinished;
+    actionFinished.actionId = model.actionId;
+    droneNetwork->getSocket().sendMessage(MESSAGE_TYPE_ACTION_FINISHED, actionFinished);
+}

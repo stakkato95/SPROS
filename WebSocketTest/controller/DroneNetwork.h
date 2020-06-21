@@ -16,6 +16,7 @@
 #include "../net/adapter/RegistrationAdapter.h"
 #include "../net/adapter/StartSessionAdapter.h"
 #include "../net/adapter/PingAdapter.h"
+#include "../net/adapter/StartActionAdapter.h"
 
 class DroneNetwork {
 public:

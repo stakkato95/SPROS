@@ -6,12 +6,14 @@
 #define WEBSOCKETTEST_NETWORKCONTROLLER_H
 
 #include <iostream>
+#include <thread>
 
 #include "controller/NetCallback.h"
 #include "controller/DroneNetwork.h"
 
 #include "model/acknowledgement/StartSessionAck.h"
 #include "model/acknowledgement/PingAck.h"
+#include "model/acknowledgement/ActionFinished.h"
 
 #include "helper/Helper.h"
 
@@ -32,6 +34,8 @@ public:
     void onStartSessionReceived(const StartSession &model) override;
 
     void onPingReceived(const Ping &model) override;
+
+    void onStartActionReceived(const StartAction &model) override;
 private:
     DroneNetwork* droneNetwork;
     bool listening = false;
