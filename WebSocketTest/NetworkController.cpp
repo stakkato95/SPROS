@@ -22,6 +22,7 @@ void NetworkController::startListening() {
             droneNetwork->startListening();
         } catch (exception &e) {
             cout << "Exception " << e.what() << endl;
+            droneNetwork->reconnect();
         }
     }
 }

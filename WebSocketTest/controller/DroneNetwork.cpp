@@ -16,6 +16,10 @@ void DroneNetwork::init() {
     factory.registerAdapter(new RegistrationAdapter(), MESSAGE_TYPE_REGISTRATION);
     factory.registerAdapter(new StartSessionAdapter(), MESSAGE_TYPE_START_SESSION);
 
+    reconnect();
+}
+
+void DroneNetwork::reconnect() {
     socket = new SocketWrapper(host, port, uri);
     socket->connect();
 
@@ -25,7 +29,7 @@ void DroneNetwork::init() {
         cout << ++attemptToConnect << " attempt to connect" << endl;
         socket->connect();
     }
-    
+
     DroneInfo droneInfo;
     droneInfo.ip = getLocalIpAddress();
     droneInfo.position = getPosition();

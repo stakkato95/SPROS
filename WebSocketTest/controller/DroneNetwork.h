@@ -22,6 +22,8 @@ public:
 
     void init();
 
+    void reconnect();
+
     void startListening();
 
     SocketWrapper& getSocket();
