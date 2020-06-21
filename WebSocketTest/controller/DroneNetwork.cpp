@@ -19,6 +19,13 @@ void DroneNetwork::init() {
     socket = new SocketWrapper(host, port, uri);
     socket->connect();
 
+    int attemptToConnect = 1;
+    while (!socket->isConnected()) {
+        this_thread::sleep_for(2s);
+        cout << ++attemptToConnect << " attempt to connect" << endl;
+        socket->connect();
+    }
+    
     DroneInfo droneInfo;
     droneInfo.ip = getLocalIpAddress();
     droneInfo.position = getPosition();

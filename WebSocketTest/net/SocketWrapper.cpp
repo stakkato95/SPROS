@@ -20,8 +20,14 @@ void SocketWrapper::connect() {
     HTTPClientSession cs(host, port);
     HTTPRequest request(HTTPRequest::HTTP_GET, uri, HTTPMessage::HTTP_1_1);
     HTTPResponse response;
-    socket = new WebSocket(cs, request, response);
-    connected = true;
+
+    try {
+        socket = new WebSocket(cs, request, response);
+        connected = true;
+    } catch (exception& e) {
+        cout << e.what() << endl;
+        connected = false;
+    }
 }
 
 void SocketWrapper::disconnect() {

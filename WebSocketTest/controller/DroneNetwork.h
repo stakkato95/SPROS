@@ -6,6 +6,7 @@
 #define WEBSOCKETTEST_DRONENETWORK_H
 
 #include <string>
+#include <thread>
 
 #include "NetCallback.h"
 #include "../net/SocketWrapper.h"
