@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <chrono>
 
 #include <boost/asio.hpp>
 #include <boost/property_tree/ptree.hpp>
@@ -42,6 +43,11 @@ static std::string treeToString(ptree tree) {
     std::ostringstream oss;
     boost::property_tree::write_json(oss, tree);
     return oss.str();
+}
+
+static long long getCurrentTimeMillisec() {
+    using namespace std::chrono;
+    return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 }
 
 #endif //WEBSOCKETTEST_HELPER_H

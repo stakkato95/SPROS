@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-#include "model/DroneInfo.h"
+#include "model/acknowledgement/DroneInfo.h"
 #include "model/Registration.h"
 
 #include "transport/Message.h"

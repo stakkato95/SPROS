@@ -49,3 +49,12 @@ void NetworkController::onStartSessionReceived(const StartSession &model) {
     ack.successful = true;
     droneNetwork->getSocket().sendMessage(MESSAGE_TYPE_START_SESSION_ACK, ack);
 }
+
+void NetworkController::onPingReceived(const Ping &model) {
+    cout << "onPingReceived " << model.timestamp << endl;
+
+    PingAck ack;
+    ack.timestamp = getCurrentTimeMillisec();
+    ack.droneId = "5eede157c4269317b428dedf";
+    droneNetwork->getSocket().sendMessage(MESSAGE_TYPE_PING_ACK, ack);
+}

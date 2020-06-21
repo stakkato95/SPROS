@@ -10,7 +10,10 @@
 #include "controller/NetCallback.h"
 #include "controller/DroneNetwork.h"
 
-#include "model/StartSessionAck.h"
+#include "model/acknowledgement/StartSessionAck.h"
+#include "model/acknowledgement/PingAck.h"
+
+#include "helper/Helper.h"
 
 class NetworkController : public NetCallback {
 public:
@@ -27,6 +30,8 @@ public:
     void onRegistrationReceived(const Registration &model) override;
 
     void onStartSessionReceived(const StartSession &model) override;
+
+    void onPingReceived(const Ping &model) override;
 private:
     DroneNetwork* droneNetwork;
     bool listening = false;

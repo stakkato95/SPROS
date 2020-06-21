@@ -6,7 +6,7 @@
 #define WEBSOCKETTEST_DRONEINFOADAPTER_H
 
 #include "MessageAdapter.h"
-#include "../../model/DroneInfo.h"
+#include "../../model/acknowledgement/DroneInfo.h"
 
 class DroneInfoAdapter : public MessageAdapter<DroneInfo> {
 public:

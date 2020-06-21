@@ -19,7 +19,7 @@
 #include <string>
 #include <functional>
 
-#include "../model/DroneInfo.h"
+#include "../model/acknowledgement/DroneInfo.h"
 #include "../transport/Message.h"
 #include "../helper/Helper.h"
 #include "../helper/MessageTypeConst.h"
