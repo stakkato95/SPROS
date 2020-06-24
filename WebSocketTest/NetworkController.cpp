@@ -55,7 +55,9 @@ void NetworkController::onPingReceived(const Ping &model) {
 
     PingAck ack;
     ack.timestamp = getCurrentTimeMillisec();
-    ack.droneId = "5eede157c4269317b428dedf";
+    //TODO id of a registered drone. currently must be updated mnually.
+    //TODO in future should be stored in an SQLite database
+    ack.droneId = "5ef1934d701d311b272bd37b";
     droneNetwork->getSocket().sendMessage(MESSAGE_TYPE_PING_ACK, ack);
 }
 
