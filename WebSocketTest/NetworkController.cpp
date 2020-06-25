@@ -39,6 +39,12 @@ void NetworkController::onShowUpReceived(const DroneInfo &model) {
 void NetworkController::onRegistrationReceived(const Registration &model) {
     cout << "onRegistrationReceived " << model.id << endl;
     registrationId = model.id;
+
+    //const string path = experimental::filesystem::current_path().string();
+    const string path = "/home/artsiom/Documents/repository/SPROS/WebSocketTest/droneId.txt";
+    ofstream os(path);
+    os << registrationId;
+    os.close();
 }
 
 void NetworkController::onStartSessionReceived(const StartSession &model) {
@@ -53,11 +59,19 @@ void NetworkController::onStartSessionReceived(const StartSession &model) {
 void NetworkController::onPingReceived(const Ping &model) {
     cout << "onPingReceived " << model.timestamp << endl;
 
+    if (registrationId.empty()) {
+        //const string path = experimental::filesystem::current_path().string();
+        const string path = "/home/artsiom/Documents/repository/SPROS/WebSocketTest/droneId.txt";
+        ifstream is(path);
+        is >> registrationId;
+        is.close();
+    }
+
     PingAck ack;
     ack.timestamp = getCurrentTimeMillisec();
     //TODO id of a registered drone. currently must be updated mnually.
     //TODO in future should be stored in an SQLite database
-    ack.droneId = "5ef1934d701d311b272bd37b";
+    ack.droneId = registrationId;
     droneNetwork->getSocket().sendMessage(MESSAGE_TYPE_PING_ACK, ack);
 }
 

@@ -16,7 +16,7 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 set(Boost_LIBRARIES Boost::filesystem Boost::regex)
 find_package(Boost COMPONENTS system)
 
-add_executable(WebSocketTest main.cpp
+add_executable(${PROJECT_NAME} main.cpp
         helper/Helper.h
         helper/MessageTypeConst.h
         model/acknowledgement/Position.h
@@ -42,4 +42,5 @@ add_executable(WebSocketTest main.cpp
         controller/NetCallback.h
         NetworkController.cpp NetworkController.h model/acknowledgement/ActionFinished.h)
 
-target_link_libraries(WebSocketTest ${Poco_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${Poco_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} stdc++fs)
