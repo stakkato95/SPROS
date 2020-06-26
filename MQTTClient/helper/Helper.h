@@ -12,7 +12,7 @@
 
 using boost::property_tree::ptree;
 
-static std::string treeToString(ptree& tree) {
+static std::string treeToString(const ptree& tree) {
     std::ostringstream oss;
     boost::property_tree::write_json(oss, tree);
     return oss.str();
