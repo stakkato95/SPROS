@@ -14,10 +14,10 @@ public:
         using Poco::JSON::Object;
         using namespace std;
 
-        StartSession info;
-        info.sessionId = objPtr->getValue<string>("sessionId");
+        StartSession startSession;
+        startSession.sessionId = objPtr->getValue<string>("sessionId");
 
-        return info;
+        return startSession;
     }
 };
 

@@ -110,3 +110,16 @@ void NetworkController::onStartActionReceived(const StartAction &model) {
     actionFinished.actionId = model.actionId;
     droneNetwork->getSocket().sendMessage(MESSAGE_TYPE_ACTION_FINISHED, actionFinished);
 }
+
+void NetworkController::onStopSessionReceived(const StopSession &model) {
+    cout << "onStopSessionReceived " << model.sessionId << endl;
+
+    if (sessionId != model.sessionId) {
+        cout << "ids don't match" << endl;
+        return;
+    }
+
+    StopSessionAck ack;
+    ack.sessionId = sessionId;
+    droneNetwork->getSocket().sendMessage(MESSAGE_TYPE_STOP_SESSION_ACK, ack);
+}

@@ -18,6 +18,7 @@
 #include "model/sentByDrone/PingAck.h"
 #include "model/sentByDrone/ActionFinished.h"
 #include "model/sentByDrone/RegistrationAck.h"
+#include "model/sentByDrone/StopSessionAck.h"
 
 #include "helper/Helper.h"
 
@@ -42,6 +43,8 @@ public:
     void onPingReceived(const Ping &model) override;
 
     void onStartActionReceived(const StartAction &model) override;
+
+    void onStopSessionReceived(const StopSession &model) override;
 private:
     DroneNetwork* droneNetwork;
     bool listening = false;

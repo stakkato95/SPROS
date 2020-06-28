@@ -10,6 +10,7 @@
 #include "../model/receivedFromServer/StartSession.h"
 #include "../model/receivedFromServer/Ping.h"
 #include "../model/receivedFromServer/StartAction.h"
+#include "../model/receivedFromServer/StopSession.h"
 
 class NetworkResponder {
 public:
@@ -24,6 +25,8 @@ public:
     virtual void onPingReceived(const Ping &model) = 0;
 
     virtual void onStartActionReceived(const StartAction &model) = 0;
+
+    virtual void onStopSessionReceived(const StopSession &model) = 0;
 };
 
 

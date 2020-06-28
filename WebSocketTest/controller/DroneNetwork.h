@@ -19,6 +19,7 @@
 #include "../net/adapter/StartActionAdapter.h"
 #include "../net/adapter/ShowUpAckAdapter.h"
 #include "../net/adapter/ShowUpAckAdapter.h"
+#include "../net/adapter/StopSessionAdapter.h"
 
 class DroneNetwork {
 public:
