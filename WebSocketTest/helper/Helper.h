@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <cstdio>
 #include <chrono>
 
 #include <boost/asio.hpp>
@@ -71,6 +72,14 @@ static std::string read(const std::string& fileName) {
     is.close();
 
     return content;
+}
+
+static void remove(const std::string& fileName) {
+    if (std::remove(fileName.c_str()) != 0) {
+        std::cout << "file '" << fileName << "' is deleted" << std::endl;
+    } else {
+        std::cout << "error deleting '" << fileName << "'" << std::endl;
+    }
 }
 
 #endif //WEBSOCKETTEST_HELPER_H

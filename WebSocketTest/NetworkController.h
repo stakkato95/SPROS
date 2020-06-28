@@ -45,6 +45,7 @@ private:
     DroneNetwork* droneNetwork;
     bool listening = false;
 
+    std::string tempId;
     std::string registrationId;
     std::string sessionId;
 };

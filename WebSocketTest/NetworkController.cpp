@@ -4,6 +4,9 @@
 
 #include "NetworkController.h"
 
+#define TEMP_FILE "tempId.txt"
+#define REGISTERED_FILE "droneId.txt"
+
 using namespace std;
 
 NetworkController::NetworkController(string& host, uint port, string& uri) {
@@ -33,10 +36,10 @@ void NetworkController::stopListening() {
 }
 
 void NetworkController::onConnectedToServer() {
-    string tempId = read("tempId.txt");
-    string droneId = read("droneId.txt");
+    tempId = read(TEMP_FILE);
+    registrationId = read(REGISTERED_FILE);
 
-    if (tempId.empty() && droneId.empty()) {
+    if (tempId.empty() && registrationId.empty()) {
         ShowUp showUp;
         showUp.ip = getLocalIpAddress();
         showUp.position = getPosition();
@@ -48,21 +51,23 @@ void NetworkController::onConnectedToServer() {
         //send MESSAGE_TYPE_SHOW_UP_TEMP -> send state on server to "unregistered drone is online"
     }
 
-    if (!droneId.empty()) {
+    if (!registrationId.empty()) {
         //send MESSAGE_TYPE_SHOW_UP_REGISTERED -> send state on server to "registered drone is online"
     }
 }
 
 void NetworkController::onShowUpAckReceived(const ShowUpAck &model) {
     cout << "onShowUpAckReceived " << model.tempId << endl;
-    save(model.tempId, "tempId.txt");
+    tempId = model.tempId;
+    save(model.tempId, TEMP_FILE);
 }
 
 void NetworkController::onRegistrationReceived(const Registration &model) {
     cout << "onRegistrationReceived " << model.id << endl;
     registrationId = model.id;
 
-    save(registrationId, "droneId.txt");
+    save(registrationId, REGISTERED_FILE);
+    remove(TEMP_FILE);
 }
 
 void NetworkController::onStartSessionReceived(const StartSession &model) {
@@ -77,15 +82,18 @@ void NetworkController::onStartSessionReceived(const StartSession &model) {
 void NetworkController::onPingReceived(const Ping &model) {
     cout << "onPingReceived " << model.timestamp << endl;
 
-    if (registrationId.empty()) {
-        registrationId = read("droneId.txt");
-    }
-
     PingAck ack;
     ack.timestamp = getCurrentTimeMillisec();
-    //TODO id of a registered drone. currently must be updated mnually.
-    //TODO in future should be stored in an SQLite database
-    ack.droneId = registrationId;
+
+    if (!tempId.empty()) {
+        ack.droneId = tempId;
+    } else if (!registrationId.empty()) {
+        ack.droneId = registrationId;
+    } else {
+        cout << "drone doesn't have an id yet" << endl;
+        return;
+    }
+
     droneNetwork->getSocket().sendMessage(MESSAGE_TYPE_PING_ACK, ack);
 }
 
