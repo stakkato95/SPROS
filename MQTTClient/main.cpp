@@ -7,6 +7,8 @@
 
 #include "helper/Helper.h"
 #include "message/GNSSMessage.h"
+#include "message/SpeedMessage.h"
+#include "message/RotationMessage.h"
 
 using namespace std;
 
@@ -31,24 +33,73 @@ GNSSMessage getNoisyGnssMessage(GNSSMessage msg) {
     return msg;
 }
 
+float getRotationAndSpeedNoise() {
+    static uniform_real_distribution<> distribution { -0.05, 0.05 };
+    return distribution(rnd);
+}
+
+RotationMessage getNoisyRotationMessage(RotationMessage msg) {
+    msg.x += getRotationAndSpeedNoise();
+    msg.y += getRotationAndSpeedNoise();
+    msg.z += getRotationAndSpeedNoise();
+    return msg;
+}
+
+SpeedMessage getNoisySpeedMessage(SpeedMessage msg) {
+    msg.x += getRotationAndSpeedNoise();
+    msg.y += getRotationAndSpeedNoise();
+    msg.z += getRotationAndSpeedNoise();
+    return msg;
+}
+
 void sendMessages(mqtt::topic& topicGnss, mqtt::topic& topicSpeed, mqtt::topic& topicRotation) {
-    GNSSMessage msg;
-    msg.lat = 48.3721216;
-    msg.lon = 14.5195008;
-    msg.alt = 400;
+    GNSSMessage msgGnss;
+    msgGnss.lat = 48.3721216;
+    msgGnss.lon = 14.5195008;
+    msgGnss.alt = 400;
+
+    RotationMessage msgRotation;
+    msgRotation.x = 0.1;
+    msgRotation.y = 0.2;
+    msgRotation.z = 0.3;
+
+    SpeedMessage msgSpeed;
+    msgSpeed.x = 0.5;
+    msgSpeed.y = 0.1;
+    msgSpeed.z = 0.5;
 
     mqtt::token_ptr tok;
 
+    int count = 0;
     while (true) {
-        GNSSMessage noisyMsg = getNoisyGnssMessage(msg);
-        boost::property_tree::ptree tree = noisyMsg.getTree();
+        long long timestamp = getCurrentTimeMillisec();
+
+        GNSSMessage msgGnssNoisy = getNoisyGnssMessage(msgGnss);
+        msgGnssNoisy.timestamp = timestamp;
+        RotationMessage msgRotationNoisy = getNoisyRotationMessage(msgRotation);
+        msgRotationNoisy.timestamp = timestamp;
+        SpeedMessage msgSpeedNoisy = getNoisySpeedMessage(msgSpeed);
+        msgSpeedNoisy.timestamp = timestamp;
+
+        boost::property_tree::ptree tree = msgGnssNoisy.getTree();
         string json = treeToString(tree);
         const char* payload = json.c_str();
-        cout << payload << endl;
-
         tok = topicGnss.publish(payload);
-        tok->wait();// Just wait for the last one to complete.
-        cout << "OK" << endl;
+        tok->wait();
+
+        tree = msgRotationNoisy.getTree();
+        json = treeToString(tree);
+        payload = json.c_str();
+        tok = topicRotation.publish(payload);
+        tok->wait();
+
+        tree = msgSpeedNoisy.getTree();
+        json = treeToString(tree);
+        payload = json.c_str();
+        tok = topicSpeed.publish(payload);
+        tok->wait();
+
+        cout << "OK " << ++count << endl;
         this_thread::sleep_for(1s);
     }
 }

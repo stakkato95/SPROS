@@ -21,7 +21,7 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 set(Boost_LIBRARIES Boost::filesystem Boost::regex)
 find_package(Boost COMPONENTS system)
 
-add_executable(${PROJECT_NAME} main.cpp message/Message.h message/GNSSMessage.h helper/Helper.h)
+add_executable(${PROJECT_NAME} main.cpp message/Message.h message/GNSSMessage.h helper/Helper.h message/SpeedMessage.h message/RotationMessage.h)
 
 target_link_libraries(${PROJECT_NAME} pahottpp)
 target_link_libraries(${PROJECT_NAME} pahomqtt3a)

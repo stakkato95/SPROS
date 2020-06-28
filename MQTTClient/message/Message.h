@@ -8,6 +8,8 @@
 #include <boost/property_tree/ptree.hpp>
 
 struct Message {
+    long long timestamp;
+
     virtual boost::property_tree::ptree getTree() const = 0;
 };
 

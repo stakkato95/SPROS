@@ -15,6 +15,7 @@ struct GNSSMessage : public Message {
     boost::property_tree::ptree getTree() const override {
         boost::property_tree::ptree out;
 
+        out.put("timestamp", this->timestamp);
         out.put("lat", this->lat);
         out.put("lon", this->lon);
         out.put("alt", this->alt);
