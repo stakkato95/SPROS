@@ -74,8 +74,9 @@ static std::string read(const std::string& fileName) {
     return content;
 }
 
-static void remove(const std::string& fileName) {
-    if (std::remove(fileName.c_str()) != 0) {
+static void removeFile(const std::string& fileName) {
+    const std::string path = "/home/artsiom/Documents/repository/SPROS/WebSocketTest/" + fileName;
+    if (std::remove(path.c_str()) != 0) {
         std::cout << "file '" << fileName << "' is deleted" << std::endl;
     } else {
         std::cout << "error deleting '" << fileName << "'" << std::endl;

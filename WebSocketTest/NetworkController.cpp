@@ -65,9 +65,10 @@ void NetworkController::onShowUpAckReceived(const ShowUpAck &model) {
 void NetworkController::onRegistrationReceived(const Registration &model) {
     cout << "onRegistrationReceived " << model.id << endl;
     registrationId = model.id;
+    tempId.clear();
 
     save(registrationId, REGISTERED_FILE);
-    remove(TEMP_FILE);
+    removeFile(TEMP_FILE);
 
     RegistrationAck ack;
     ack.droneId = registrationId;
