@@ -5,7 +5,7 @@
 #ifndef WEBSOCKETTEST_NETCALLBACK_H
 #define WEBSOCKETTEST_NETCALLBACK_H
 
-#include "../model/acknowledgement/DroneInfo.h"
+#include "../model/ShowUpAck.h"
 #include "../model/Registration.h"
 #include "../model/StartSession.h"
 #include "../model/Ping.h"
@@ -13,7 +13,7 @@
 
 class NetCallback {
 public:
-    virtual void onShowUpReceived(const DroneInfo &model) = 0;
+    virtual void onShowUpAckReceived(const ShowUpAck &model) = 0;
 
     virtual void onRegistrationReceived(const Registration &model) = 0;
 

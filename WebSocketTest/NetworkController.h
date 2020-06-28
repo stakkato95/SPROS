@@ -29,7 +29,7 @@ public:
 
     void stopListening();
 
-    void onShowUpReceived(const DroneInfo &model) override;
+    void onShowUpAckReceived(const ShowUpAck &model) override;
 
     void onRegistrationReceived(const Registration &model) override;
 

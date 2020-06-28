@@ -32,19 +32,17 @@ void NetworkController::stopListening() {
     droneNetwork->getSocket().disconnect();
 }
 
-void NetworkController::onShowUpReceived(const DroneInfo &model) {
-    cout << "onShowUpReceived " << model.ip << endl;
+
+void NetworkController::onShowUpAckReceived(const ShowUpAck &model) {
+    cout << "CALLED" << endl;
+    cout << "onShowUpReceived " << model.tempId << endl;
 }
 
 void NetworkController::onRegistrationReceived(const Registration &model) {
     cout << "onRegistrationReceived " << model.id << endl;
     registrationId = model.id;
 
-    //const string path = experimental::filesystem::current_path().string();
-    const string path = "/home/artsiom/Documents/repository/SPROS/WebSocketTest/droneId.txt";
-    ofstream os(path);
-    os << registrationId;
-    os.close();
+    save(registrationId, "droneId.txt");
 }
 
 void NetworkController::onStartSessionReceived(const StartSession &model) {
@@ -60,11 +58,7 @@ void NetworkController::onPingReceived(const Ping &model) {
     cout << "onPingReceived " << model.timestamp << endl;
 
     if (registrationId.empty()) {
-        //const string path = experimental::filesystem::current_path().string();
-        const string path = "/home/artsiom/Documents/repository/SPROS/WebSocketTest/droneId.txt";
-        ifstream is(path);
-        is >> registrationId;
-        is.close();
+        registrationId = read("droneId.txt");
     }
 
     PingAck ack;

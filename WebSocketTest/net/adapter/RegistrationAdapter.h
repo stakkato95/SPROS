@@ -15,5 +15,4 @@ public:
     }
 };
 
-
 #endif //WEBSOCKETTEST_REGISTRATIONADAPTER_H

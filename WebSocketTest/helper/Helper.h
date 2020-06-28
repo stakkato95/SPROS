@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <chrono>
 
 #include <boost/asio.hpp>
@@ -48,6 +49,24 @@ static std::string treeToString(ptree tree) {
 static long long getCurrentTimeMillisec() {
     using namespace std::chrono;
     return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+}
+
+static void save(const std::string& text, const std::string& fileName) {
+    const std::string path = "/home/artsiom/Documents/repository/SPROS/WebSocketTest/" + fileName;
+    std::ofstream os(path);
+    os << text;
+    os.close();
+}
+
+static std::string read(const std::string& fileName) {
+    const std::string path = "/home/artsiom/Documents/repository/SPROS/WebSocketTest/" + fileName;
+    std::ifstream is(path);
+
+    std::string content;
+    is >> content;
+    is.close();
+
+    return content;
 }
 
 #endif //WEBSOCKETTEST_HELPER_H

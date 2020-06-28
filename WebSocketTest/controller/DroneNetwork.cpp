@@ -17,6 +17,7 @@ void DroneNetwork::init() {
     factory.registerAdapter(new StartSessionAdapter(), MESSAGE_TYPE_START_SESSION);
     factory.registerAdapter(new PingAdapter(), MESSAGE_TYPE_PING);
     factory.registerAdapter(new StartActionAdapter(), MESSAGE_TYPE_START_ACTION);
+    factory.registerAdapter(new ShowUpAckAdapter(), MESSAGE_TYPE_SHOW_UP_ACK);
 
     reconnect();
 }
@@ -40,9 +41,9 @@ void DroneNetwork::reconnect() {
 
 void DroneNetwork::startListening() {
     socket->startListening([&](std::string &messageType, Object::Ptr &objPtr) {
-        if (messageType == MESSAGE_TYPE_SHOW_UP) {
-            auto d = factory.parseJson<DroneInfo>(objPtr, MESSAGE_TYPE_SHOW_UP);
-            callback.onShowUpReceived(d);
+        if (messageType == MESSAGE_TYPE_SHOW_UP_ACK) {
+            auto d = factory.parseJson<ShowUpAck>(objPtr, MESSAGE_TYPE_SHOW_UP_ACK);
+            callback.onShowUpAckReceived(d);
         } else if (messageType == MESSAGE_TYPE_REGISTRATION) {
             auto r = factory.parseJson<Registration>(objPtr, MESSAGE_TYPE_REGISTRATION);
             callback.onRegistrationReceived(r);
