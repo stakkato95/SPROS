@@ -6,8 +6,8 @@
 
 #include <iostream>
 
-#include "model/request/ShowUp.h"
-#include "model/response/Registration.h"
+#include "model/sentByDrone/ShowUp.h"
+#include "model/receivedFromServer/Registration.h"
 
 #include "transport/Message.h"
 #include "helper/Helper.h"

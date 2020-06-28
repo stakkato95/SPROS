@@ -13,10 +13,10 @@
 #include "controller/NetworkResponder.h"
 #include "controller/DroneNetwork.h"
 
-#include "model/request/ShowUp.h"
-#include "model/request/StartSessionAck.h"
-#include "model/request/PingAck.h"
-#include "model/request/ActionFinished.h"
+#include "model/sentByDrone/ShowUp.h"
+#include "model/sentByDrone/StartSessionAck.h"
+#include "model/sentByDrone/PingAck.h"
+#include "model/sentByDrone/ActionFinished.h"
 
 #include "helper/Helper.h"
 

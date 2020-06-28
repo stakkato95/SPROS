@@ -19,16 +19,16 @@ find_package(Boost COMPONENTS system)
 add_executable(${PROJECT_NAME} main.cpp
         helper/Helper.h
         helper/MessageTypeConst.h
-        model/request/Position.h
-        model/request/ShowUp.h
-        model/request/Position.h
-        model/request/Model.h
-        model/request/StartSessionAck.h
-        model/request/PingAck.h
-        model/response/Registration.h
-        model/response/StartSession.h
-        model/response/StartAction.h
-        model/response/Ping.h
+        model/sentByDrone/Position.h
+        model/sentByDrone/ShowUp.h
+        model/sentByDrone/Position.h
+        model/sentByDrone/Model.h
+        model/sentByDrone/StartSessionAck.h
+        model/sentByDrone/PingAck.h
+        model/receivedFromServer/Registration.h
+        model/receivedFromServer/StartSession.h
+        model/receivedFromServer/StartAction.h
+        model/receivedFromServer/Ping.h
         transport/Message.cpp transport/Message.h
         net/SocketWrapper.cpp net/SocketWrapper.h
         net/adapter/MessageFactory.h
@@ -40,7 +40,7 @@ add_executable(${PROJECT_NAME} main.cpp
         net/adapter/PingAdapter.h
         controller/DroneNetwork.cpp controller/DroneNetwork.h
         controller/NetworkResponder.h
-        NetworkController.cpp NetworkController.h model/request/ActionFinished.h model/response/ShowUpAck.h net/adapter/ShowUpAckAdapter.h)
+        NetworkController.cpp NetworkController.h model/sentByDrone/ActionFinished.h model/receivedFromServer/ShowUpAck.h net/adapter/ShowUpAckAdapter.h)
 
 target_link_libraries(${PROJECT_NAME} ${Poco_LIBRARIES} ${Boost_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} stdc++fs)

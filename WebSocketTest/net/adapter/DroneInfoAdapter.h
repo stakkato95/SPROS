@@ -6,7 +6,7 @@
 #define WEBSOCKETTEST_DRONEINFOADAPTER_H
 
 #include "MessageAdapter.h"
-#include "../../model/request/ShowUp.h"
+#include "../../model/sentByDrone/ShowUp.h"
 
 class DroneInfoAdapter : public MessageAdapter<ShowUp> {
 public:

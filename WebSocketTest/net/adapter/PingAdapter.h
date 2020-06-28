@@ -6,7 +6,7 @@
 #define WEBSOCKETTEST_PINGADAPTER_H
 
 #include "MessageAdapter.h"
-#include "../../model/response/Ping.h"
+#include "../../model/receivedFromServer/Ping.h"
 
 class PingAdapter : public MessageAdapter<Ping> {
 public:

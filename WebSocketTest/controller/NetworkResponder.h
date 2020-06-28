@@ -5,11 +5,11 @@
 #ifndef WEBSOCKETTEST_NETWORKRESPONDER_H
 #define WEBSOCKETTEST_NETWORKRESPONDER_H
 
-#include "../model/response/ShowUpAck.h"
-#include "../model/response/Registration.h"
-#include "../model/response/StartSession.h"
-#include "../model/response/Ping.h"
-#include "../model/response/StartAction.h"
+#include "../model/receivedFromServer/ShowUpAck.h"
+#include "../model/receivedFromServer/Registration.h"
+#include "../model/receivedFromServer/StartSession.h"
+#include "../model/receivedFromServer/Ping.h"
+#include "../model/receivedFromServer/StartAction.h"
 
 class NetworkResponder {
 public:

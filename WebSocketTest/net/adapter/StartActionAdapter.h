@@ -6,7 +6,7 @@
 #define WEBSOCKETTEST_STARTACTIONADAPTER_H
 
 #include "MessageAdapter.h"
-#include "../../model/response/StartAction.h"
+#include "../../model/receivedFromServer/StartAction.h"
 
 class StartActionAdapter : public MessageAdapter<StartAction> {
 public:
