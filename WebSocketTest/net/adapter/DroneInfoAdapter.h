@@ -6,15 +6,15 @@
 #define WEBSOCKETTEST_DRONEINFOADAPTER_H
 
 #include "MessageAdapter.h"
-#include "../../model/acknowledgement/DroneInfo.h"
+#include "../../model/request/ShowUp.h"
 
-class DroneInfoAdapter : public MessageAdapter<DroneInfo> {
+class DroneInfoAdapter : public MessageAdapter<ShowUp> {
 public:
-    DroneInfo getModel(Poco::JSON::Object::Ptr& objPtr) const noexcept(false) override {
+    ShowUp getModel(Poco::JSON::Object::Ptr& objPtr) const noexcept(false) override {
         using Poco::JSON::Object;
         using namespace std;
 
-        DroneInfo info;
+        ShowUp info;
         info.ip = objPtr->getValue<string>("ip");
 
         Object::Ptr posPtr = objPtr->getObject("position");

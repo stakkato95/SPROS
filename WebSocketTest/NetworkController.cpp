@@ -32,10 +32,30 @@ void NetworkController::stopListening() {
     droneNetwork->getSocket().disconnect();
 }
 
+void NetworkController::onConnectedToServer() {
+    string tempId = read("tempId.txt");
+    string droneId = read("droneId.txt");
+
+    if (tempId.empty() && droneId.empty()) {
+        ShowUp showUp;
+        showUp.ip = getLocalIpAddress();
+        showUp.position = getPosition();
+        droneNetwork->getSocket().sendMessage<ShowUp>(MESSAGE_TYPE_SHOW_UP, showUp);
+        return;
+    }
+
+    if (!tempId.empty()) {
+        //send MESSAGE_TYPE_SHOW_UP_TEMP -> send state on server to "unregistered drone is online"
+    }
+
+    if (!droneId.empty()) {
+        //send MESSAGE_TYPE_SHOW_UP_REGISTERED -> send state on server to "registered drone is online"
+    }
+}
 
 void NetworkController::onShowUpAckReceived(const ShowUpAck &model) {
-    cout << "CALLED" << endl;
-    cout << "onShowUpReceived " << model.tempId << endl;
+    cout << "onShowUpAckReceived " << model.tempId << endl;
+    save(model.tempId, "tempId.txt");
 }
 
 void NetworkController::onRegistrationReceived(const Registration &model) {

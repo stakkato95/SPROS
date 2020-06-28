@@ -6,7 +6,7 @@
 #define WEBSOCKETTEST_REGISTRATIONADAPTER_H
 
 #include "MessageAdapter.h"
-#include "../../model/Registration.h"
+#include "../../model/response/Registration.h"
 
 class RegistrationAdapter : public MessageAdapter<Registration> {
 public:

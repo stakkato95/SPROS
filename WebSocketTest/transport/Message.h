@@ -7,7 +7,7 @@
 
 #include <string>
 
-#include "../model/acknowledgement/Model.h"
+#include "../model/request/Model.h"
 
 template<typename T>
 struct Message : public Model {

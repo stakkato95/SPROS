@@ -6,7 +6,7 @@
 #define WEBSOCKETTEST_SHOWUPACKADAPTER_H
 
 #include "MessageAdapter.h"
-#include "../../model/ShowUpAck.h"
+#include "../../model/response/ShowUpAck.h"
 
 class ShowUpAckAdapter : public MessageAdapter<ShowUpAck> {
 public:

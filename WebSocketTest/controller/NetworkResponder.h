@@ -5,14 +5,16 @@
 #ifndef WEBSOCKETTEST_NETWORKRESPONDER_H
 #define WEBSOCKETTEST_NETWORKRESPONDER_H
 
-#include "../model/ShowUpAck.h"
-#include "../model/Registration.h"
-#include "../model/StartSession.h"
-#include "../model/Ping.h"
-#include "../model/StartAction.h"
+#include "../model/response/ShowUpAck.h"
+#include "../model/response/Registration.h"
+#include "../model/response/StartSession.h"
+#include "../model/response/Ping.h"
+#include "../model/response/StartAction.h"
 
 class NetworkResponder {
 public:
+    virtual void onConnectedToServer() = 0;
+
     virtual void onShowUpAckReceived(const ShowUpAck &model) = 0;
 
     virtual void onRegistrationReceived(const Registration &model) = 0;

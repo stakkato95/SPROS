@@ -33,10 +33,7 @@ void DroneNetwork::reconnect() {
         socket->connect();
     }
 
-    DroneInfo droneInfo;
-    droneInfo.ip = getLocalIpAddress();
-    droneInfo.position = getPosition();
-    socket->sendMessage<DroneInfo>(MESSAGE_TYPE_SHOW_UP, droneInfo);
+    responder.onConnectedToServer();
 }
 
 void DroneNetwork::startListening() {

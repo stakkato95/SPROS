@@ -62,6 +62,10 @@ static std::string read(const std::string& fileName) {
     const std::string path = "/home/artsiom/Documents/repository/SPROS/WebSocketTest/" + fileName;
     std::ifstream is(path);
 
+    if (!is.good()) {
+        return "";
+    }
+
     std::string content;
     is >> content;
     is.close();

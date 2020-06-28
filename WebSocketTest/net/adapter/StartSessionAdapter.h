@@ -6,7 +6,7 @@
 #define WEBSOCKETTEST_STARTSESSIONADAPTER_H
 
 #include "MessageAdapter.h"
-#include "../../model/StartSession.h"
+#include "../../model/response/StartSession.h"
 
 class StartSessionAdapter : public MessageAdapter<StartSession> {
 public:

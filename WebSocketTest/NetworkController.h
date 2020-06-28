@@ -13,9 +13,10 @@
 #include "controller/NetworkResponder.h"
 #include "controller/DroneNetwork.h"
 
-#include "model/acknowledgement/StartSessionAck.h"
-#include "model/acknowledgement/PingAck.h"
-#include "model/acknowledgement/ActionFinished.h"
+#include "model/request/ShowUp.h"
+#include "model/request/StartSessionAck.h"
+#include "model/request/PingAck.h"
+#include "model/request/ActionFinished.h"
 
 #include "helper/Helper.h"
 
@@ -28,6 +29,8 @@ public:
     void startListening();
 
     void stopListening();
+
+    void onConnectedToServer() override;
 
     void onShowUpAckReceived(const ShowUpAck &model) override;
 
