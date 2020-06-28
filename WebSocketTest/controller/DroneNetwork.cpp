@@ -8,8 +8,8 @@ using namespace std;
 
 using Poco::JSON::Object;
 
-DroneNetwork::DroneNetwork(string &host, uint port, string &uri, NetCallback &callback)
-        : host{host}, port{port}, uri{uri}, callback{callback} {}
+DroneNetwork::DroneNetwork(string &host, uint port, string &uri, NetworkResponder &callback)
+        : host{host}, port{port}, uri{uri}, responder{callback} {}
 
 void DroneNetwork::init() {
     factory.registerAdapter(new DroneInfoAdapter(), MESSAGE_TYPE_SHOW_UP);
@@ -43,19 +43,19 @@ void DroneNetwork::startListening() {
     socket->startListening([&](std::string &messageType, Object::Ptr &objPtr) {
         if (messageType == MESSAGE_TYPE_SHOW_UP_ACK) {
             auto d = factory.parseJson<ShowUpAck>(objPtr, MESSAGE_TYPE_SHOW_UP_ACK);
-            callback.onShowUpAckReceived(d);
+            responder.onShowUpAckReceived(d);
         } else if (messageType == MESSAGE_TYPE_REGISTRATION) {
             auto r = factory.parseJson<Registration>(objPtr, MESSAGE_TYPE_REGISTRATION);
-            callback.onRegistrationReceived(r);
+            responder.onRegistrationReceived(r);
         } else if (messageType == MESSAGE_TYPE_START_SESSION) {
             auto r = factory.parseJson<StartSession>(objPtr, MESSAGE_TYPE_START_SESSION);
-            callback.onStartSessionReceived(r);
+            responder.onStartSessionReceived(r);
         } else if (messageType == MESSAGE_TYPE_PING) {
             auto r = factory.parseJson<Ping>(objPtr, MESSAGE_TYPE_PING);
-            callback.onPingReceived(r);
+            responder.onPingReceived(r);
         } else if (messageType == MESSAGE_TYPE_START_ACTION) {
             auto r = factory.parseJson<StartAction>(objPtr, MESSAGE_TYPE_START_ACTION);
-            callback.onStartActionReceived(r);
+            responder.onStartActionReceived(r);
         }
     });
 }

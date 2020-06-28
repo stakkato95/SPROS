@@ -2,8 +2,8 @@
 // Created by artsiom on 13.06.20.
 //
 
-#ifndef WEBSOCKETTEST_NETCALLBACK_H
-#define WEBSOCKETTEST_NETCALLBACK_H
+#ifndef WEBSOCKETTEST_NETWORKRESPONDER_H
+#define WEBSOCKETTEST_NETWORKRESPONDER_H
 
 #include "../model/ShowUpAck.h"
 #include "../model/Registration.h"
@@ -11,7 +11,7 @@
 #include "../model/Ping.h"
 #include "../model/StartAction.h"
 
-class NetCallback {
+class NetworkResponder {
 public:
     virtual void onShowUpAckReceived(const ShowUpAck &model) = 0;
 
@@ -25,4 +25,4 @@ public:
 };
 
 
-#endif //WEBSOCKETTEST_NETCALLBACK_H
+#endif //WEBSOCKETTEST_NETWORKRESPONDER_H

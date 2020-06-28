@@ -10,7 +10,7 @@
 #include <experimental/filesystem>
 #include <iostream>
 
-#include "controller/NetCallback.h"
+#include "controller/NetworkResponder.h"
 #include "controller/DroneNetwork.h"
 
 #include "model/acknowledgement/StartSessionAck.h"
@@ -19,7 +19,7 @@
 
 #include "helper/Helper.h"
 
-class NetworkController : public NetCallback {
+class NetworkController : public NetworkResponder {
 public:
     NetworkController(std::string& host, uint port, std::string& uri);
 

@@ -8,7 +8,7 @@
 #include <string>
 #include <thread>
 
-#include "NetCallback.h"
+#include "NetworkResponder.h"
 #include "../net/SocketWrapper.h"
 
 #include "../net/adapter/MessageFactory.h"
@@ -21,7 +21,7 @@
 
 class DroneNetwork {
 public:
-    DroneNetwork(std::string& host, uint port, std::string& uri, NetCallback&);
+    DroneNetwork(std::string& host, uint port, std::string& uri, NetworkResponder&);
 
     void init();
 
@@ -38,7 +38,7 @@ private:
     bool listening;
 
     SocketWrapper* socket;
-    NetCallback& callback;
+    NetworkResponder& responder;
     MessageFactory factory;
 };
 
