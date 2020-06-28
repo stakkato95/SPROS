@@ -79,7 +79,7 @@ void NetworkController::onStartSessionReceived(const StartSession &model) {
     sessionId = model.sessionId;
 
     StartSessionAck ack;
-    ack.successful = true;
+    ack.sessionId = sessionId;
     droneNetwork->getSocket().sendMessage(MESSAGE_TYPE_START_SESSION_ACK, ack);
 }
 

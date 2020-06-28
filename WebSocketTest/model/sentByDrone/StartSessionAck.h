@@ -8,12 +8,12 @@
 #include "Model.h"
 
 struct StartSessionAck : public Model {
-    bool successful;
+    std::string sessionId;
 
     boost::property_tree::ptree getTree() const override {
         boost::property_tree::ptree out;
 
-        out.put("successful", this->successful);
+        out.put("sessionId", this->sessionId);
 
         return out;
     }
