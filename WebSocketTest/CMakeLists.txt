@@ -40,7 +40,7 @@ add_executable(${PROJECT_NAME} main.cpp
         net/adapter/PingAdapter.h
         controller/DroneNetwork.cpp controller/DroneNetwork.h
         controller/NetworkResponder.h
-        NetworkController.cpp NetworkController.h model/sentByDrone/ActionFinished.h model/receivedFromServer/ShowUpAck.h net/adapter/ShowUpAckAdapter.h)
+        NetworkController.cpp NetworkController.h model/sentByDrone/ActionFinished.h model/receivedFromServer/ShowUpAck.h net/adapter/ShowUpAckAdapter.h model/sentByDrone/RegistrationAck.h net/adapter/RegistrationAckAdapter.h)
 
 target_link_libraries(${PROJECT_NAME} ${Poco_LIBRARIES} ${Boost_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} stdc++fs)

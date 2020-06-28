@@ -68,6 +68,10 @@ void NetworkController::onRegistrationReceived(const Registration &model) {
 
     save(registrationId, REGISTERED_FILE);
     remove(TEMP_FILE);
+
+    RegistrationAck ack;
+    ack.droneId = registrationId;
+    droneNetwork->getSocket().sendMessage(MESSAGE_TYPE_REGISTRATION_ACK, ack);
 }
 
 void NetworkController::onStartSessionReceived(const StartSession &model) {

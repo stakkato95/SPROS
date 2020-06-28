@@ -17,6 +17,7 @@
 #include "model/sentByDrone/StartSessionAck.h"
 #include "model/sentByDrone/PingAck.h"
 #include "model/sentByDrone/ActionFinished.h"
+#include "model/sentByDrone/RegistrationAck.h"
 
 #include "helper/Helper.h"
 
