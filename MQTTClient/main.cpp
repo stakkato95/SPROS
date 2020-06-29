@@ -17,7 +17,7 @@ using namespace std;
 default_random_engine rnd(std::chrono::system_clock::now().time_since_epoch().count());
 
 float getGnssLatLonNoise() {
-    static uniform_real_distribution<> distribution { -0.000003, 0.000004 };
+    static uniform_real_distribution<> distribution { -0.0003, 0.0004 };
     return distribution(rnd);
 }
 
