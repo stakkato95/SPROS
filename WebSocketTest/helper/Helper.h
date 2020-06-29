@@ -10,10 +10,13 @@
 #include <fstream>
 #include <cstdio>
 #include <chrono>
+#include <experimental/filesystem>
 
 #include <boost/asio.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
+
+#include "../model/sentByDrone/Position.h"
 
 using boost::asio::ip::udp;
 using boost::property_tree::ptree;
@@ -52,15 +55,19 @@ static long long getCurrentTimeMillisec() {
     return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 }
 
+static std::string getCurrentPath() {
+    return std::experimental::filesystem::current_path();
+}
+
 static void save(const std::string& text, const std::string& fileName) {
-    const std::string path = "/home/artsiom/Documents/repository/SPROS/WebSocketTest/" + fileName;
+    const std::string path = getCurrentPath() + '/' + fileName;
     std::ofstream os(path);
     os << text;
     os.close();
 }
 
 static std::string read(const std::string& fileName) {
-    const std::string path = "/home/artsiom/Documents/repository/SPROS/WebSocketTest/" + fileName;
+    const std::string path = getCurrentPath() + '/' + fileName;
     std::ifstream is(path);
 
     if (!is.good()) {
@@ -75,7 +82,7 @@ static std::string read(const std::string& fileName) {
 }
 
 static void removeFile(const std::string& fileName) {
-    const std::string path = "/home/artsiom/Documents/repository/SPROS/WebSocketTest/" + fileName;
+    const std::string path = getCurrentPath() + '/' + fileName;
     if (std::remove(path.c_str()) != 0) {
         std::cout << "file '" << fileName << "' is deleted" << std::endl;
     } else {
